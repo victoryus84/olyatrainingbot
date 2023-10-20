@@ -1,0 +1,10 @@
+FROM nginx:latest
+
+# Copy the nginx.conf file
+COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
+
+# Expose the desired ports
+EXPOSE 80
+
+# Start Nginx
+CMD ["/bin/bash", "-c", "exec nginx -g 'daemon off;'"]

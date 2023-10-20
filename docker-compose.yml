@@ -1,0 +1,65 @@
+services:
+  db_app:
+    container_name: db_${PROJECT_NAME}
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=${PGSQL_DATABASE}
+      - POSTGRES_USER=${PGSQL_USER}
+      - POSTGRES_PASSWORD=${PGSQL_PASSWORD}
+    volumes:
+      - "./shared/db/data:/var/lib/postgresql/data"
+      - "./shared/db/backup:/home:rw"
+    networks:
+      - default 
+    restart: always  
+  web:
+    container_name: web_${PROJECT_NAME}
+    build: .
+    # command: python manage.py runserver 0.0.0.0:8000
+    command: gunicorn ${PROJECT_NAME}.wsgi:application -c gunicorn.conf.py
+    # ports:
+    #   - "8000:8000"
+    expose:
+        - "8000"
+    environment:
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=${PGSQL_USER}
+      - POSTGRES_PASSWORD=${PGSQL_PASSWORD}
+    volumes:
+      - .:/app
+    networks:
+      - default 
+    depends_on:
+      - db_app
+    restart: "no" 
+  nginx:
+    container_name: nginx_${PROJECT_NAME}
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    command: sh -c "nginx -g 'daemon off;'"
+    ports:
+      - ${NGINX_PORT_UP}:${NGINX_PORT_DOWN}
+    networks:
+      - default 
+    depends_on:
+      - web   
+  pgadmin:
+    container_name: pga_${PROJECT_NAME}
+    image: dpage/pgadmin4
+    ports:
+      - "8080:80"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
+    volumes:
+      - "./shared/pgadmin:/var/lib/pgadmin"  
+    networks:
+      - default
+    restart: always
+ 
+    
