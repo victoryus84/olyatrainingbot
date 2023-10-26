@@ -14,26 +14,15 @@ services:
     networks:
       - default 
     restart: always  
-  web:
-    container_name: web_${PROJECT_NAME}
-    build: .
-    # command: python manage.py runserver 0.0.0.0:8000
-    command: gunicorn ${PROJECT_NAME}.wsgi:application -c gunicorn.conf.py
-    # ports:
-    #   - "8000:8000"
-    expose:
-        - "8000"
-    environment:
-      - POSTGRES_NAME=postgres
-      - POSTGRES_USER=${PGSQL_USER}
-      - POSTGRES_PASSWORD=${PGSQL_PASSWORD}
-    volumes:
-      - .:/app
+  telebot:
+    build: ./
+    container_name: telebot_${PROJECT_NAME}
+    command: python3 ./OlyaTrainingBot.py
     networks:
       - default 
     depends_on:
       - db_app
-    restart: "no" 
+    restart: always 
   nginx:
     container_name: nginx_${PROJECT_NAME}
     build:
@@ -47,7 +36,7 @@ services:
     networks:
       - default 
     depends_on:
-      - web   
+      - db_app   
   pgadmin:
     container_name: pga_${PROJECT_NAME}
     image: dpage/pgadmin4
