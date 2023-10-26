@@ -15,8 +15,9 @@ services:
       - default 
     restart: always  
   telebot:
+    build: ./
     container_name: telebot_${PROJECT_NAME}
-    image: telebot:latest
+    command: python3 ./OlyaTrainingBot.py
     networks:
       - default 
     depends_on:
@@ -35,7 +36,7 @@ services:
     networks:
       - default 
     depends_on:
-      - web   
+      - db_app   
   pgadmin:
     container_name: pga_${PROJECT_NAME}
     image: dpage/pgadmin4

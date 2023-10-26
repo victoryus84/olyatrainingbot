@@ -13,4 +13,3 @@ RUN pip install --upgrade pip && \
 
 COPY . /app/
 
-CMD [ "python OlyaTrainingBot.py" ]
