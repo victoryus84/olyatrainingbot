@@ -125,7 +125,9 @@ async def language_choise(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
         return CHOOSING  # Reveniți la alegerea limbii
 
     await update.message.reply_text("Language succes selected!", reply_markup=ReplyKeyboardRemove())
-
+    await update.message.reply_text(
+        'Alright, please send me the category first, for example "Most impressive skill"'
+    )
     return CHOOSING
 
 # async def universities_choise(update: Update, context: ContextTypes.DEFAULT_TYPE) -> str:
