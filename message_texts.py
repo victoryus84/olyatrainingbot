@@ -30,7 +30,7 @@ BEGIN_MESSAGES = [
 ]
 
 # Define the welcome message for both English and Romanian
-UNIV_MESSAGES = {
+UNIVERSITIES_MESSAGES = {
     'en': (
        "Are you gearing up for university interviews and entrance exams in the UK? Look no further! Olya Training is here to guide you."
        "Our tailored programs boost your skills and confidence, ensuring you shine in every aspect of the admissions process."
@@ -50,6 +50,17 @@ UNIV_MESSAGES = {
     )
 }
 
+# Define the welcome message for both English and Romanian
+COURSES_MESSAGES = {
+    'en': (
+       "Select your course..."
+    ),
+    'ro': (
+       "Select your course..."
+       "Alege-ți cursul dorit..."
+    )
+}
+
 # Define the help message
 HELP_MESSAGE = [
     "Olya Training Bot that provides information and language selection.\n\n"
@@ -57,3 +68,17 @@ HELP_MESSAGE = [
     "/start - Start the bot and choose your language.\n"
     "/help - Display this help message."
 ]
+
+# Define the welcome message for both English and Romanian
+COURSES_MESSAGES1 = {
+    'en': (
+      "Very important! Why is it absolutely necessary to know general" 
+      "information about the university you have applied to during the interview?"
+    ),
+    'ro': (
+       "Very important! Why is it absolutely necessary to know general" 
+       "information about the university you have applied to during the interview?" 
+       "Foarte Important! De ce este absolut necesar sa cunosti la interviu informatia generala"
+       "despre universitatea la care ai aplicat?"
+    )
+}
